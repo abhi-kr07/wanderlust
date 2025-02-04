@@ -1,0 +1,7 @@
+step 1> Go to manage jenkins -> system -> Search "Global Trusted Pipeline Libraries" -> add
+step 2> Name=Shared -> Default Version=main 
+step 3> Tick on "Allow default version to be overidden" and "Include @Library changes in job recent changes"
+step 4> Retrival method= Modern SCM -> SCM=Git -> Project Repo=<paste the repo where your shared library is> -> Librarypath=vars
+
+step 5> Include this name=Shared in top of your pipeline
+        @Library("Shared") _
