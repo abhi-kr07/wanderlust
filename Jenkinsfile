@@ -75,7 +75,7 @@ pipeline {
                     steps {
                         script {
                             dir("IP_update_automation") {
-                                sh "bash updatebackend.sh>"
+                                sh "bash updatebackend.sh"
                             }
                         }
                     }
@@ -85,7 +85,7 @@ pipeline {
                     steps {
                         script {
                             dir("IP_update_automation") {
-                                sh "bash frontend.sh"
+                                sh "bash updatefrontend.sh"
                             }
                         }
                     }
