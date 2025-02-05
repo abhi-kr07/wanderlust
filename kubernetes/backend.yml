@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: abhishekk4/wanderlust-app-backend:v20
+          image: abhishekk4/wanderlust-app-backend:latest
           ports:
             - containerPort: 8080
 ---
