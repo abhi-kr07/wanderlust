@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: abhishekk4/wanderlust-app-frontend:v22.22
+          image: abhishekk4/wanderlust-app-frontend:1
           ports:
             - containerPort: 5173
 ---
