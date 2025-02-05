@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # Set the Instance ID and path to the .env file
 INSTANCE_ID="i-0cd84e6ae47255a3a"
 
