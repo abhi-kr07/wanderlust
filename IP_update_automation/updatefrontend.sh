@@ -10,7 +10,7 @@ if [[ "${current_url}" != "VITE_API_PATH=\"http://${Public_IPv4}:31100\"" ]]
 then
     if [[ -f ${find_the_file} ]]
     then 
-        sed -i -e "s|VITE_API_PATH.*|VITE_API_PATH=\"http://${Public_IPv4}:31100\"|g" $file_to_find
+        sed -i -e "s|VITE_API_PATH.*|VITE_API_PATH=\"http://${Public_IPv4}:31100\"|g" $file_the_find
     else
         echo "File Not Found"
     fi
