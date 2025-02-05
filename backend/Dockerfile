@@ -7,34 +7,38 @@
 # EXPOSE 8080
 # CMD [ "npm" , "start" ]
 
-# Stage 1
+# Stage 1: Build Stage
 FROM node:21 AS backend-builder
 
-# setup the working dir
+# Set up the working directory
 WORKDIR /app
 
-# code
-COPY . .
+# Copy package.json and package-lock.json first to leverage Docker caching
+COPY package*.json ./
 
-# packages install
+# Install dependencies, including TypeScript
 RUN npm install
 
-# tests
-# RUN npm run test
+# Copy the rest of the code
+COPY . .
 
-# Stage 2
+# Compile TypeScript to the 'dist' directory
+RUN npx tsc  # This will compile TypeScript files
+
+# Stage 2: Runtime Stage
 FROM node:21-slim
 
-# setup the working dir
+# Set up the working directory
 WORKDIR /app
 
-# copy the above stage as compressed
-COPY --from=backend-builder /app .
+# Copy the compiled JavaScript files from the build stage
+COPY --from=backend-builder /app/dist ./dist
 
+# Copy environment variables
 COPY .env.docker .env
 
-# Port
+# Expose the application port
 EXPOSE 8080
 
-# App
-CMD ["npm", "start"]
+# Start the application from the compiled JavaScript
+CMD ["node", "dist/server.js"]
