@@ -1,17 +1,22 @@
 #!/bin/bash
 
-Instance_ID="i-0e12f3c50299eb0ac"
-Public_IPv4=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+# Set the Instance ID and path to the .env file
+INSTANCE_ID="i-0cd84e6ae47255a3a"
 
-find_the_file="../frontend/.env.sample"
-current_url=$(cat $file_the_find)
+# Retrieve the public IP address of the specified EC2 instance
+ipv4_address=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
 
-if [[ "${current_url}" != "VITE_API_PATH=\"http://${Public_IPv4}:31100\"" ]]
-then
-    if [[ -f ${find_the_file} ]]
-    then 
-        sed -i -e "s|VITE_API_PATH.*|VITE_API_PATH=\"http://${Public_IPv4}:31100\"|g" $file_the_find
+# Path to the .env file
+file_to_find="../frontend/.env.sample"
+
+# Check the current VITE_API_PATH in the .env file
+current_url=$(cat $file_to_find)
+
+# Update the .env file if the IP address has changed
+if [[ "$current_url" != "VITE_API_PATH=\"http://${ipv4_address}:31100\"" ]]; then
+    if [ -f $file_to_find ]; then
+        sed -i -e "s|VITE_API_PATH.*|VITE_API_PATH=\"http://${ipv4_address}:31100\"|g" $file_to_find
     else
-        echo "File Not Found"
+        echo "ERROR: File not found."
     fi
 fi
