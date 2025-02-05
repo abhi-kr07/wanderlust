@@ -8,6 +8,7 @@
 # CMD [ "npm" , "start" ]
 
 # Stage 1: Build Stage
+# Stage 1: Build Stage
 FROM node:21 AS backend-builder
 
 # Set up the working directory
